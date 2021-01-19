@@ -5,10 +5,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import pl.gda.wsb.PageFactory.DriverFactory;
 import pl.gda.wsb.PageFactory.LoginPage;
-
-import java.util.concurrent.TimeUnit;
 
 public class LoginSteps {
 
@@ -17,13 +15,7 @@ public class LoginSteps {
 
     @Given("Open login page")
     public void open_login_page() {
-
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-
+        driver = DriverFactory.getChromeDriver();
         driver.navigate().to("https://opensource-demo.orangehrmlive.com/");
     }
 
