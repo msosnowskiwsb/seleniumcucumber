@@ -6,14 +6,15 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pl.gda.wsb.PageFactory.LoginPage;
 
 import java.util.concurrent.TimeUnit;
 
 public class LoginSteps {
 
     WebDriver driver = null;
+    LoginPage loginPage;
 
     @Given("Open login page")
     public void open_login_page() {
@@ -30,18 +31,23 @@ public class LoginSteps {
 
     @When("User enters username and password")
     public void user_enters_username_and_password() {
-        driver.findElement(By.id("txtUsername")).sendKeys("Admin");
-        driver.findElement(By.id("txtPassword")).sendKeys("admin321321");
+        loginPage = new LoginPage(driver);
+        loginPage.enterUsername("Admin");
+        loginPage.enterPassword("admin31231");
+        //driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+        //driver.findElement(By.id("txtPassword")).sendKeys("admin321321");
     }
 
     @When("Clics on login button")
     public void clics_on_login_button() {
-        driver.findElement(By.id("btnLogin")).click();
+        loginPage.clickOnLogin();
+        //driver.findElement(By.id("btnLogin")).click();
     }
 
     @Then("The validation message is displayed")
     public void the_validation_message_is_displayed() {
-        String validation_message = driver.findElement(By.id("spanMessage")).getText();
-        Assert.assertEquals("Invalid credentials", validation_message);
+        //String validation_message = driver.findElement(By.id("spanMessage")).getText();
+        Assert.assertEquals("Invalid credentials", loginPage.getValidationMessage());
+        driver.close();
     }
 }
