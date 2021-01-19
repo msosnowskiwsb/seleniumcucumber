@@ -27,11 +27,11 @@ public class LoginSteps {
         driver.navigate().to("https://opensource-demo.orangehrmlive.com/");
     }
 
-    @When("User enters username and password")
-    public void user_enters_username_and_password() {
+    @When("^User enters (.*) and (.*)$")
+    public void user_enters_username_and_password(String username, String password) {
         loginPage = new LoginPage(driver);
-        loginPage.enterUsername("Admin");
-        loginPage.enterPassword("admin31231");
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
     }
 
     @When("Clics on login button")
