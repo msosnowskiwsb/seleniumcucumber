@@ -4,7 +4,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pl.gda.wsb.PageFactory.LoginPage;
@@ -19,7 +18,6 @@ public class LoginSteps {
     @Given("Open login page")
     public void open_login_page() {
 
-        // Declaration and instantiation of driver
         System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -34,19 +32,15 @@ public class LoginSteps {
         loginPage = new LoginPage(driver);
         loginPage.enterUsername("Admin");
         loginPage.enterPassword("admin31231");
-        //driver.findElement(By.id("txtUsername")).sendKeys("Admin");
-        //driver.findElement(By.id("txtPassword")).sendKeys("admin321321");
     }
 
     @When("Clics on login button")
     public void clics_on_login_button() {
         loginPage.clickOnLogin();
-        //driver.findElement(By.id("btnLogin")).click();
     }
 
     @Then("The validation message is displayed")
     public void the_validation_message_is_displayed() {
-        //String validation_message = driver.findElement(By.id("spanMessage")).getText();
         Assert.assertEquals("Invalid credentials", loginPage.getValidationMessage());
         driver.close();
     }
