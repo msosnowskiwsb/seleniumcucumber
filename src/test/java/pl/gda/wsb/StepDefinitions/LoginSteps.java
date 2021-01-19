@@ -34,6 +34,5 @@ public class LoginSteps {
     @Then("The validation message is displayed")
     public void the_validation_message_is_displayed() {
         Assert.assertEquals("Invalid credentials", loginPage.getValidationMessage());
-        driver.close();
     }
 }
