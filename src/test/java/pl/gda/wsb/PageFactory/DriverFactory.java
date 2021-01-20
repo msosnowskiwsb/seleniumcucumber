@@ -2,8 +2,8 @@ package pl.gda.wsb.PageFactory;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +15,7 @@ public class DriverFactory {
         // instancja
     }
 
-    @BeforeSuite
+    @BeforeTest
     public static WebDriver getChromeDriver() {
         if (driver == null) {
             System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\drivers\\chromedriver.exe");
@@ -26,8 +26,8 @@ public class DriverFactory {
         return driver;
     }
 
-    @AfterSuite
-    public void tearDown(){
-        driver.close();
+    @AfterTest
+    public void tearDown() {
+        getChromeDriver().close();
     }
 }

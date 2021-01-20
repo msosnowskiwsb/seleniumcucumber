@@ -8,22 +8,21 @@ import org.openqa.selenium.WebDriver;
 import pl.gda.wsb.PageFactory.DriverFactory;
 import pl.gda.wsb.PageFactory.LoginPage;
 
+import java.util.concurrent.TimeUnit;
+
 public class LoginSteps {
 
-    WebDriver driver = null;
-    LoginPage loginPage;
+    WebDriver driver = DriverFactory.getChromeDriver();
+    LoginPage loginPage = new LoginPage(driver);
 
     @Given("Open login page")
     public void open_login_page() {
-        driver = DriverFactory.getChromeDriver();
         driver.navigate().to("https://opensource-demo.orangehrmlive.com/");
     }
 
-    @When("^User enters (.*) and (.*)$")
+    @When("^User enters invalid credentials (.*) and (.*)$")
     public void user_enters_username_and_password(String username, String password) {
-        loginPage = new LoginPage(driver);
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
+        loginPage.enterCredentials(username,password);
     }
 
     @When("Clics on login button")
@@ -31,8 +30,18 @@ public class LoginSteps {
         loginPage.clickOnLogin();
     }
 
-    @Then("The validation message is displayed")
-    public void the_validation_message_is_displayed() {
-        Assert.assertEquals("Invalid credentials", loginPage.getValidationMessage());
+    @Then("^The validation (.*) is displayed$")
+    public void the_validation_message_is_displayed(String message) {
+        Assert.assertEquals(message, loginPage.getValidationMessage());
+    }
+
+    @When("The page is loaded")
+    public void thePageIsLoaded() {
+        driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+    }
+
+    @Then("Logo is visible on login page")
+    public void logoIsVisibleOnLoginPage() {
+        Assert.assertTrue(loginPage.isLogoDisplayed());
     }
 }

@@ -3,6 +3,7 @@ package pl.gda.wsb.PageFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
@@ -18,6 +19,9 @@ public class LoginPage {
 
     @FindBy(id = "spanMessage")
     WebElement validationMessage;
+
+    @FindBy(id = "divLogo")
+    public WebElement logo;
 
     WebDriver driver;
 
@@ -40,6 +44,15 @@ public class LoginPage {
 
     public String getValidationMessage() {
         return validationMessage.getText();
+    }
+
+    public void enterCredentials(String username, String password){
+        enterUsername(username);
+        enterPassword(password);
+    }
+
+    public Boolean isLogoDisplayed(){
+        return logo.isDisplayed();
     }
 
 }
